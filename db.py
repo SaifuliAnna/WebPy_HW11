@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker, scoped_session
 
 
 engine = create_engine(
-    "sqlite:///myBookOne.db", connect_args={"check_same_thread": False}, echo=True
+    "sqlite:///myBookTwo.db", connect_args={"check_same_thread": False}, echo=True
 )
 
 db_session = scoped_session(

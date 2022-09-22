@@ -13,17 +13,24 @@ class Contact(Base):
     __tablename__ = "contacts"
     id = Column(Integer, primary_key=True)
     nickname = Column(String(50), nullable=False)
+    phone = Column(String(150), nullable=False, unique=True)
+    created = Column(DateTime, default=datetime.now())
+    infos = relationship("Info", backref="contacts")
+
+
+class Info(Base):
+    __tablename__ = "infos"
+    id = Column(Integer, primary_key=True)
     name = Column(String(50), nullable=True)
     surname = Column(String(50), nullable=True)
-    phone = Column(String(150), nullable=False, unique=True)
     email = Column(String(125), nullable=True, unique=True)
     birthday = Column(String(25), nullable=True)
     address = Column(String(25), nullable=True)
-    created = Column(DateTime, default=datetime.now())
+    info_id = Column("info_id", ForeignKey("contacts.id", ondelete="CASCADE"))
 
-    def __repr__(self) -> str:
-        return f"{self.nickname}, {self.name}, {self.surname}, {self.phone}, {self.email}, {self.birthday}," \
-               f" {self.address}"
+    def __repr_(self):
+        return f'Info: {self.id}, {self.name}, {self.surname}, {self.email}, ' \
+               f'{self.birthday}, {self.address}'
 
 
 if __name__ == "__main__":
